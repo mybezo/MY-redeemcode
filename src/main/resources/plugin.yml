@@ -1,0 +1,21 @@
+name: RedeemCode
+version: '${project.version}'
+main: com.mybezo.redeemcode.RedeemCodePlugin
+api-version: '26.3'
+description: '${project.description}'
+authors: [mybezo]
+website: https://github.com/mybezo/my-redeemcode
+
+permissions:
+  redeemcode.use:
+    description: Allows redeeming codes with /redeem <code>.
+    default: true
+  redeemcode.admin:
+    description: Allows creating, editing, deleting and inspecting redeem codes.
+    default: op
+    children:
+      redeemcode.use: true
+      redeemcode.bypass.cooldown: true
+  redeemcode.bypass.cooldown:
+    description: Bypasses the invalid-attempt cooldown.
+    default: op

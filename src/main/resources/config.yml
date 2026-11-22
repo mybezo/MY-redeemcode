@@ -1,0 +1,86 @@
+# ---------------------------------------------------------------
+#  RedeemCode - configuration
+#  All messages use MiniMessage: https://docs.advntr.dev/minimessage/format.html
+# ---------------------------------------------------------------
+
+settings:
+  # Template used by the "Add Balance Reward" button in the command editor.
+  # %amount% is replaced with the amount you type, %player% is resolved at claim time.
+  # Examples: "eco give %player% %amount%", "points give %player% %amount%"
+  balance-command: "eco give %player% %amount%"
+
+  # Codes are case-insensitive when players redeem them.
+  # Allowed characters for new codes (regex).
+  code-pattern: "^[A-Za-z0-9_-]{3,32}$"
+
+  # Seconds a player must wait after entering an INVALID code (anti brute-force).
+  # Set to 0 to disable.
+  invalid-attempt-cooldown: 3
+
+  # Seconds an admin has to type a value in chat before the prompt expires.
+  chat-input-timeout: 60
+
+  # What to do with item rewards that do not fit in the player's inventory: DROP or CANCEL
+  #  DROP   - drop leftover items at the player's feet.
+  #  CANCEL - refuse the claim until the player frees enough space.
+  full-inventory-action: DROP
+
+  # Broadcast a message to the whole server when someone redeems a code.
+  broadcast-on-redeem: false
+
+  # Play sounds on success / failure.
+  sounds: true
+
+messages:
+  prefix: "<dark_gray>[<gradient:#ffb347:#ffcc33>Redeem</gradient><dark_gray>]</dark_gray> "
+  no-permission: "<red>You don't have permission to do that."
+  players-only: "<red>This command can only be used by players."
+  help-header: "<gradient:#ffb347:#ffcc33><bold>RedeemCode</bold></gradient> <gray>- Commands"
+  help-player: "<yellow>/redeem <code> <gray>- Redeem a code."
+  help-admin:
+    - "<yellow>/redeem create <code> <gray>- Create a code and open the editor."
+    - "<yellow>/redeem edit <code> <gray>- Open the editor of an existing code."
+    - "<yellow>/redeem delete <code> <gray>- Permanently delete a code."
+    - "<yellow>/redeem info <code> <gray>- Show details and statistics of a code."
+    - "<yellow>/redeem list <gray>- List all codes."
+    - "<yellow>/redeem resetclaims <code> [player] <gray>- Reset claim data."
+    - "<yellow>/redeem reload <gray>- Reload the configuration."
+
+  # Redeeming
+  redeem-success: "<green>You successfully redeemed code <gold><code></gold>!"
+  redeem-broadcast: "<gold><player></gold> <gray>just redeemed code <gold><code></gold>!"
+  invalid-code: "<red>That code does not exist."
+  code-disabled: "<red>That code is currently disabled."
+  code-expired: "<red>That code has expired."
+  code-no-rewards: "<red>That code has no rewards configured yet."
+  code-no-permission: "<red>You are not allowed to redeem this code."
+  already-redeemed: "<red>You have already redeemed this code."
+  max-claims-reached: "<red>This code has reached its maximum number of claims."
+  ip-limit-reached: "<red>This code has already been redeemed the maximum number of times from your network."
+  inventory-full: "<red>Your inventory is full. Free up <yellow><slots></yellow> slot(s) and try again."
+  items-dropped: "<yellow>Some items didn't fit in your inventory and were dropped at your feet."
+  cooldown: "<red>Please wait <yellow><seconds>s</yellow> before trying another code."
+
+  # Admin
+  invalid-code-format: "<red>Invalid code format. Use 3-32 characters: letters, numbers, '_' or '-'."
+  reserved-code: "<red>That name is reserved by a sub-command and cannot be used as a code."
+  code-exists: "<red>Code <gold><code></gold> already exists. Use <yellow>/redeem edit <code></yellow>."
+  code-created: "<green>Code <gold><code></gold> created. Configure its rewards in the editor."
+  code-deleted: "<green>Code <gold><code></gold> has been deleted."
+  code-not-found: "<red>Code <gold><code></gold> was not found."
+  claims-reset: "<green>Claim data of <gold><code></gold> has been reset."
+  claims-reset-player: "<green>Claim of <gold><player></gold> for <gold><code></gold> has been reset."
+  claims-reset-player-none: "<red><player> has not redeemed <code>."
+  reloaded: "<green>Configuration reloaded."
+  list-header: "<gold>Redeem codes <gray>(<count>)</gray>:"
+  list-entry: "<gray>- <status> <gold><code></gold> <gray>(<claims>/<max> claims)"
+  list-empty: "<gray>There are no redeem codes yet."
+
+  # Chat input
+  input-prompt: "<yellow><prompt></yellow> <gray>(type <red>cancel</red> to abort, <time>s)"
+  input-cancelled: "<gray>Input cancelled."
+  input-timeout: "<red>Input timed out."
+  input-invalid-number: "<red>Please enter a valid whole number (0 or higher)."
+  input-invalid-duration: "<red>Invalid duration. Examples: <yellow>30m</yellow>, <yellow>12h</yellow>, <yellow>7d</yellow>, <yellow>1d12h</yellow>, <yellow>never</yellow>."
+  input-invalid-amount: "<red>Please enter a valid positive amount."
+  value-updated: "<green>Updated successfully."
